@@ -53,8 +53,8 @@ namespace JeyceryTradingCorporation.Controllers
                 category.DateCreated = DateTime.Now.ToString();
                 category.CreatedBy = "Admin";
                 db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges();                
+                return View("Table", db.Categories.ToList());
             }
 
             return View(category);

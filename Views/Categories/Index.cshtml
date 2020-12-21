@@ -3,23 +3,13 @@
 @{
     ViewBag.Title = "Categories";
 }
+<div class="container mt-5">
+    <h2>Categories</h2>
 
-<h2>Categories</h2>
-
-<div class="container-fluid">
-    @{Html.RenderAction("Create");}
-    @{Html.RenderPartial("Table");}     
+    <div class="container-fluid">
+        @{Html.RenderAction("Create");}
+        @{Html.RenderPartial("Table");}
+    </div>
 </div>
 
-@section Scripts {
-    <script>
-        var table;
-        $(document).ready(function () {
-            table = $('table').DataTable();
-        });
-        function reload() {
-            table.ajax.reload();
-        }
-    </script>
 
-}

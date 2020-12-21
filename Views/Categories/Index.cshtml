@@ -1,0 +1,25 @@
+﻿@model IEnumerable<JeyceryTradingCorporation.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<div class="container-fluid">
+    @{Html.RenderAction("Create");}
+    @{Html.RenderPartial("Table");}     
+</div>
+
+@section Scripts {
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('table').DataTable();
+        });
+        function reload() {
+            table.ajax.reload();
+        }
+    </script>
+
+}

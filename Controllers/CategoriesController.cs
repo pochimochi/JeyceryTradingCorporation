@@ -72,7 +72,7 @@ namespace JeyceryTradingCorporation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView(category);
         }
 
         // POST: Categories/Edit/5
@@ -84,9 +84,11 @@ namespace JeyceryTradingCorporation.Controllers
         {
             if (ModelState.IsValid)
             {
+                category.DateModified = DateTime.Now.ToString();
+                category.ModifiedBy = "Admin";
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("Table", db.Categories.ToList());
             }
             return View(category);
         }

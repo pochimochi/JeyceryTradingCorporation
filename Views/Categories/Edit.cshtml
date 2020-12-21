@@ -2,17 +2,18 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "";
 }
-<div class="mt-5">
+<div class="">
     <h2>Edit Category</h2>
 
 
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm("Edit", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "EditForm"+Model.ID }))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            
+
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
@@ -59,18 +60,15 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <div onclick="EditConfirmation('@(Model.ID)')" value="edit" class="btn btn-success">Save <span class="bi-pen"></span></div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="CloseModal">Close</button>
                 </div>
             </div>
         </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
 </div>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

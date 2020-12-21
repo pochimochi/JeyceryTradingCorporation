@@ -13,3 +13,66 @@
 </div>
 
 
+
+
+<script>
+
+    $(document).ready(function () {
+        $('table').DataTable();
+    });
+
+    function CreateConfirmation() {
+
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Save`,
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $('#form0').submit();
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        });
+    }
+
+    function EditConfirmation(id) {
+
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Save`,
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $('#EditForm' + id).submit();
+
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        });
+    }
+
+    function Success() {
+        $('table').DataTable();
+        $('.clear').val('');
+        @if (ViewData.ModelState.IsValid)
+    {
+        @:$('.modal').modal('hide');
+        @:$('.modal-backdrop').hide();
+    }
+
+        Swal.fire(
+            'Success!',
+            'You have successfully created a new Category',
+            'success'
+        )
+    }
+</script>
+
+

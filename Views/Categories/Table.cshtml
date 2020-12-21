@@ -1,26 +1,26 @@
 ﻿@model IEnumerable<JeyceryTradingCorporation.Models.Category>
-@{ 
+@{
     Layout = "";
 }
-<div class="card" id="CreateTable">
+<div class="card" id="Table">
     <div class="card-body">
-        <table class="table table-sm" >
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateCreated)
+                        Date Created
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateModified)
+                        Date Modified
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CreatedBy)
+                        Created By
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ModifiedBy)
+                        Modified By
                     </th>
                     <th></th>
                 </tr>
@@ -46,29 +46,52 @@
                             @Html.DisplayFor(modelItem => item.ModifiedBy)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                            <div class="btn-group">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#EditModal@(item.ID)">
+                                    Edit <span class="bi-pen"></span>
+                                </button>
+
+
+                                <a href="@Url.Action("Details", new { id = item.ID })" class="btn btn-info btn-sm">Details <span class="bi-menu-up"></span></a>
+
+                                <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger btn-sm">Delete <span class="bi-trash"></span></a>
+                            </div>
+
                         </td>
+
+
+
+
                     </tr>
+
                 }
             </tbody>
 
 
         </table>
+
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('table').DataTable();
-    }); 
-    function Success() {
-        $('table').DataTable();
-        $('.clear').val('');
-        Swal.fire(
-            'Success!',
-            'You have successfully created a new Category',
-            'success'
-        )
+    @foreach (var item in Model)
+    {
+        <!-- Modal -->
+
+        <div class="modal fade" id="EditModal@(item.ID)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @{Html.RenderPartial("Edit", item);}
+                    </div>
+
+                </div>
+            </div>
+        </div>
     }
-</script>
+
+</div>
+

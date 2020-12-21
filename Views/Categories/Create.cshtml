@@ -6,7 +6,7 @@
 }
 
 
-@using (Ajax.BeginForm("Create", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "CreateTable", OnSuccess = "Success();" }))
+@using (Ajax.BeginForm("Create", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,8 +23,10 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+            <div class="col-md-offset-2 col-md-10">                
+                <div onclick="CreateConfirmation()" value="Create" class="btn btn-success">
+                    Create <span class="bi-pencil-square"></span>
+                </div>
             </div>
         </div>
     </div>

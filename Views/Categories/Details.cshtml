@@ -7,7 +7,7 @@
 
 
 <div class="container mt-5">
-    <h2>Details</h2>
+    <h2>@(Model.Name)</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -52,9 +52,63 @@
 
     </dl>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" }) 
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#EditModal@(Model.ID)">
+            Edit <span class="bi-pen"></span>
+        </button>
 
-        @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-info" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info" })
     </p>
 </div>
 
+<!-- Modal -->
+
+<div class="modal fade" id="EditModal@(Model.ID)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @{Html.RenderPartial("Edit", Model);}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function EditConfirmation(id) {
+
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Save`,
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $('#EditForm' + id).submit();
+
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        });
+    }
+
+    function Success() {
+        Swal.fire({
+            title: 'You have successfully created a new Product',
+            confirmButtonText: `Okay`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                location.reload();
+
+            } else if (result.isDenied) {
+                location.reload();
+            }
+        });
+
+
+    }
+</script>

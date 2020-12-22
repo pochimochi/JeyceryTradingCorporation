@@ -1,0 +1,98 @@
+﻿@model IEnumerable<JeyceryTradingCorporation.Models.Product>
+@{
+    Layout = "";
+}
+<div class="card" id="Table">
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Size)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Weight)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateModified)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ModifiedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category.Name)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Weight)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifiedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @using (Ajax.BeginForm("Delete", "Products", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "DeleteForm" + item.ID }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="btn-group">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#EditModal@(item.ID)">
+                                        Edit <span class="bi-pen"></span>
+                                    </button>
+                                    <a href="@Url.Action("Details", new { id = item.ID })" class="btn btn-info btn-sm">Details <span class="bi-menu-up"></span></a>
+                                    <input type="hidden" value="@(item.ID)" name="id" />
+                                    <div onclick="DeleteConfirmation(@item.ID)" value="Delete" class="btn btn-danger">
+                                        Delete <span class="bi-trash"></span>
+                                    </div>
+                                    @* <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger btn-sm">Delete <span class="bi-trash"></span></a>*@
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+

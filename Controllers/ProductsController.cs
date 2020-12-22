@@ -52,9 +52,13 @@ namespace JeyceryTradingCorporation.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.CreatedBy = "admin";
+                product.DateCreated = DateTime.Now.ToString();
+             
+
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("table", db.Products.ToList());
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
@@ -86,13 +90,18 @@ namespace JeyceryTradingCorporation.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.ModifiedBy = "admin";
+                product.DateModified = DateTime.Now.ToString();
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("table", db.Products.ToList());
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
             return View(product);
         }
+
+        
 
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
@@ -117,7 +126,7 @@ namespace JeyceryTradingCorporation.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView("Table", db.Products.ToList());
         }
 
         protected override void Dispose(bool disposing)

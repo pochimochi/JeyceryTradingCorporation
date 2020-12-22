@@ -46,19 +46,23 @@
                             @Html.DisplayFor(modelItem => item.ModifiedBy)
                         </td>
                         <td>
-
+                            @using (Ajax.BeginForm("Delete", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "DeleteForm" + item.ID }))
+                            {
+                                @Html.AntiForgeryToken()
                             <div class="btn-group">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#EditModal@(item.ID)">
                                     Edit <span class="bi-pen"></span>
                                 </button>
-
-
                                 <a href="@Url.Action("Details", new { id = item.ID })" class="btn btn-info btn-sm">Details <span class="bi-menu-up"></span></a>
-
-                                <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger btn-sm">Delete <span class="bi-trash"></span></a>
+                                <input type="hidden" value="@(item.ID)" name="id" />
+                                <div onclick="DeleteConfirmation(@item.ID)" value="Delete" class="btn btn-danger">
+                                    Delete <span class="bi-trash"></span>
+                                </div>
+                                
+                                @* <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger btn-sm">Delete <span class="bi-trash"></span></a>*@
                             </div>
-
+                            }
                         </td>
 
 

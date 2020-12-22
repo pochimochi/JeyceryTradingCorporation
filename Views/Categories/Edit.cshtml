@@ -8,7 +8,7 @@
     <h2>Edit Category</h2>
 
 
-    @using (Ajax.BeginForm("Edit", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "EditForm"+Model.ID }))
+    @using (Ajax.BeginForm("Edit", "Categories", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "EditForm" + Model.ID }))
     {
         @Html.AntiForgeryToken()
 

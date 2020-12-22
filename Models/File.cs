@@ -12,26 +12,21 @@ namespace JeyceryTradingCorporation.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class File
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public File()
         {
             this.Products_Files = new HashSet<Products_Files>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Size { get; set; }
-        public string Weight { get; set; }
+        public string Path { get; set; }
         public string DateCreated { get; set; }
         public string DateModified { get; set; }
-        public Nullable<int> CategoryID { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_Files> Products_Files { get; set; }
     }

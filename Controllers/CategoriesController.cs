@@ -116,7 +116,7 @@ namespace JeyceryTradingCorporation.Controllers
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView("Table", db.Categories.ToList());
         }
 
         protected override void Dispose(bool disposing)

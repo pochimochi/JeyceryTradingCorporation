@@ -9,28 +9,17 @@
 
     <div class="container-fluid">
         @{Html.RenderAction("Create");}
+
+
         @{Html.RenderPartial("Table");}
+
+
+
+
     </div>
 </div>
 
-@foreach (var item in Model)
-{
-    <!-- Modal -->
 
-    <div class="modal fade" id="EditModal@(item.ID)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @{Html.RenderAction("Edit", new { id = item.ID });}
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
 <script>
 
@@ -93,7 +82,7 @@
         });
     }
 
-    function Success() {
+        function Success(status, page) {
         $('table').DataTable();
         $('.clear').val('');
         @if (ViewData.ModelState.IsValid)
@@ -102,9 +91,17 @@
         @:$('.modal-backdrop').hide();
     }
 
+        var feedback = "";
+        if (status == "create") {
+            feedback = "created"
+        } else if (status == "edit") {
+            feedback = "edited"
+        } else if (status == "delete") {
+            feedback = "deleted"
+        }
         Swal.fire(
             'Success!',
-            'You have successfully created a new Category',
+            'You have successfully ' + feedback + ' a ' + page,
             'success'
         )
     }

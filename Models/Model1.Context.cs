@@ -27,7 +27,7 @@ namespace JeyceryTradingCorporation.Models
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<FilePath> FilePaths { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Products_Files> Products_Files { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

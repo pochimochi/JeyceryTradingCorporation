@@ -29,7 +29,7 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Files">
+        <EntityType Name="FilePaths">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -85,11 +85,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Files_Files">
-          <End Role="Files" Type="Self.Files" Multiplicity="0..1" />
+        <Association Name="FK_Products_Files_FilePaths">
+          <End Role="FilePaths" Type="Self.FilePaths" Multiplicity="0..1" />
           <End Role="Products_Files" Type="Self.Products_Files" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Files">
+            <Principal Role="FilePaths">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Products_Files">
@@ -112,7 +112,7 @@
         <EntityContainer Name="JTCDBModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilePaths" EntityType="Self.FilePaths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products_Files" EntityType="Self.Products_Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -120,8 +120,8 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Files_Files" Association="Self.FK_Products_Files_Files">
-            <End Role="Files" EntitySet="Files" />
+          <AssociationSet Name="FK_Products_Files_FilePaths" Association="Self.FK_Products_Files_FilePaths">
+            <End Role="FilePaths" EntitySet="FilePaths" />
             <End Role="Products_Files" EntitySet="Products_Files" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_Files_Products" Association="Self.FK_Products_Files_Products">
@@ -136,7 +136,7 @@
         <EntityContainer Name="JTCDBEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Accounts" EntityType="JTCDBModel.Account" />
           <EntitySet Name="Categories" EntityType="JTCDBModel.Category" />
-          <EntitySet Name="Files" EntityType="JTCDBModel.File" />
+          <EntitySet Name="FilePaths" EntityType="JTCDBModel.FilePath" />
           <EntitySet Name="Products" EntityType="JTCDBModel.Product" />
           <EntitySet Name="Products_Files" EntityType="JTCDBModel.Products_Files" />
           <EntitySet Name="sysdiagrams" EntityType="JTCDBModel.sysdiagram" />
@@ -144,8 +144,8 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Files_Files" Association="JTCDBModel.FK_Products_Files_Files">
-            <End Role="File" EntitySet="Files" />
+          <AssociationSet Name="FK_Products_Files_FilePaths" Association="JTCDBModel.FK_Products_Files_FilePaths">
+            <End Role="FilePath" EntitySet="FilePaths" />
             <End Role="Products_Files" EntitySet="Products_Files" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_Files_Products" Association="JTCDBModel.FK_Products_Files_Products">
@@ -178,7 +178,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Products" Relationship="JTCDBModel.FK_Products_Categories" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="File">
+        <EntityType Name="FilePath">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -188,7 +188,7 @@
           <Property Name="DateModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products_Files" Relationship="JTCDBModel.FK_Products_Files_Files" FromRole="File" ToRole="Products_Files" />
+          <NavigationProperty Name="Products_Files" Relationship="JTCDBModel.FK_Products_Files_FilePaths" FromRole="FilePath" ToRole="Products_Files" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -214,7 +214,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="FileID" Type="Int32" />
-          <NavigationProperty Name="File" Relationship="JTCDBModel.FK_Products_Files_Files" FromRole="Products_Files" ToRole="File" />
+          <NavigationProperty Name="FilePath" Relationship="JTCDBModel.FK_Products_Files_FilePaths" FromRole="Products_Files" ToRole="FilePath" />
           <NavigationProperty Name="Product" Relationship="JTCDBModel.FK_Products_Files_Products" FromRole="Products_Files" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -239,11 +239,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Files_Files">
-          <End Type="JTCDBModel.File" Role="File" Multiplicity="0..1" />
+        <Association Name="FK_Products_Files_FilePaths">
+          <End Type="JTCDBModel.FilePath" Role="FilePath" Multiplicity="0..1" />
           <End Type="JTCDBModel.Products_Files" Role="Products_Files" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="File">
+            <Principal Role="FilePath">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Products_Files">
@@ -263,7 +263,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -295,9 +295,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="JTCDBModel.File">
-              <MappingFragment StoreEntitySet="Files">
+          <EntitySetMapping Name="FilePaths">
+            <EntityTypeMapping TypeName="JTCDBModel.FilePath">
+              <MappingFragment StoreEntitySet="FilePaths">
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />

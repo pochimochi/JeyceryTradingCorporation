@@ -142,7 +142,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\File.cs">
+    <Compile Include="Models\FilePath.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -273,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\Model1.edmx">
@@ -309,6 +310,8 @@
     <Content Include="Views\Categories\Table.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Views\Products\Table.cshtml" />
+    <Content Include="Views\Home\ProductIndex.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

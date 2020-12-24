@@ -1,0 +1,46 @@
+﻿@model IEnumerable<JeyceryTradingCorporation.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+    var i = 0;
+}
+
+<div class="container mt-5">
+    <h2>Products</h2>
+
+    <div class="mt-5">
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-4">
+                    <div class="card">
+                        <a href="@(Url.Action("Product", new { id = item.ID }))">
+                            <img src="@(item.Products_Files.First().FilePath.Path)" class="card-img-top" alt="...">
+
+                        </a>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-title">
+                                        @item.Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+

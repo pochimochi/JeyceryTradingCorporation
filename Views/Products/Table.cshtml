@@ -10,9 +10,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.Description)
-                    </th>
+                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.Size)
                     </th>
@@ -45,9 +45,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Description)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Size)
                         </td>
@@ -70,7 +70,7 @@
                             @Html.DisplayFor(modelItem => item.Category.Name)
                         </td>
                         <td>
-                            @using (Ajax.BeginForm("Delete", "Products", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success();" }, new { id = "DeleteForm" + item.ID }))
+                            @using (Ajax.BeginForm("Delete", "Products", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Table", OnSuccess = "Success('delete', 'Product');" }, new { id = "DeleteForm" + item.ID }))
                             {
                                 @Html.AntiForgeryToken()
                                 <div class="btn-group">
@@ -93,6 +93,23 @@
 
 
         </table>
+        @foreach (var item in Model)
+        {
+            <!-- Modal -->
+
+            <div class="modal fade" id="EditModal@(item.ID)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @{Html.RenderAction("EditProduct", new { id = item.ID });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
-

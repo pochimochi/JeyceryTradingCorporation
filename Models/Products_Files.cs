@@ -18,7 +18,7 @@ namespace JeyceryTradingCorporation.Models
         public Nullable<int> ProductID { get; set; }
         public Nullable<int> FileID { get; set; }
     
-        public virtual File File { get; set; }
+        public virtual FilePath FilePath { get; set; }
         public virtual Product Product { get; set; }
     }
 }
